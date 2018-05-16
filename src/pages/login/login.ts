@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {AlertController, IonicPage, Loading, NavController, LoadingController} from 'ionic-angular';
 import {HomePage} from "../home/home";
+import {DataProvider} from "../../providers/data/data";
 
 /**
  * Generated class for the LoginPage page.
@@ -11,20 +12,53 @@ import {HomePage} from "../home/home";
 
 @IonicPage()
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html',
+    selector: 'page-login',
+    templateUrl: 'login.html',
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController) {
-  }
+    public loading: Loading;
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
-  }
+    constructor(public navCtrl: NavController, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public data: DataProvider) {
+    }
 
-  loginClick():void {
-    this.navCtrl.setRoot(HomePage);
-  }
+    ionViewDidLoad() {
+        console.log('ionViewDidLoad LoginPage');
+    }
+
+    loginClick(): void {
+        let prompt = this.alertCtrl.create({
+            title: 'Log into your account',
+            message: 'Log in to view your account',
+            inputs: [
+                {
+                    name: 'email',
+                    placeholder: 'email address'
+                },
+                {
+                    name: 'password',
+                    placeholder: 'password',
+                    type: "password"
+                }
+            ],
+            buttons: [
+                {
+                    text: 'Cancel',
+                    handler: data => {
+                        console.log('cancel clicked');
+                    }
+                },
+                {
+                    text: 'Login',
+                    handler: data => {
+                        this.data.signInWithEP(data);
+                    }
+                }
+            ]
+
+        });
+        this.loading = this.loadingCtrl.create();
+        prompt.present();
+    }
 
 }

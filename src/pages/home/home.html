@@ -10,10 +10,10 @@
 
   <ion-card *ngFor="let card of setOfCards">
       <ion-card-header>
-          {{card.title}}
+          {{card.val().title}}
       </ion-card-header>
       <ion-card-content>
-            {{card.content}}
+            {{card.val().content}}
       </ion-card-content>
       <ion-row>
 

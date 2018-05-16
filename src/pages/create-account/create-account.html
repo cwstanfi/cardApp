@@ -1,0 +1,32 @@
+<!--
+  Generated template for the CreateAccountPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>createAccount</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <div class="formHolder"><h1>Login to the Todo List</h1>
+        <form [formGroup]="loginForm" (ngSubmit)="loginSubmitForm()">
+            <ion-item>
+                <ion-label floating>Email Address</ion-label>
+                <ion-input type="email" formControlName="email"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Password</ion-label>
+                <ion-input type="password" formControlName="password"></ion-input>
+            </ion-item>
+            <button ion-button class="submitBtn" full type="submit" [disabled]="!loginForm.valid">Login</button>
+        </form>
+    </div>
+
+</ion-content>
