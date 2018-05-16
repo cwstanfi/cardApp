@@ -1,36 +1,32 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      My card view
-    </ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>
+            My Card View
+        </ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-
-  <ion-card *ngFor="let card of setOfCards">
-      <ion-card-header>
-          {{card.val().title}}
-      </ion-card-header>
-      <ion-card-content>
-            {{card.val().content}}
-      </ion-card-content>
-      <ion-row>
-
-          <ion-col center text-center>
-              <button ion-button icon-only clear (click)="editCard(card)">
-                  <ion-icon name="md-create"></ion-icon>
-              </button>
-          </ion-col>
-
-          <ion-col center text-center>
-              <button ion-button icon-only clear (click)="deleteCard(card)">
-                  <ion-icon name="md-trash"></ion-icon>
-              </button>
-          </ion-col>
-
-      </ion-row>
-  </ion-card>
+    <ion-card *ngFor="let card of setOfCards">
+        <ion-card-header>
+            {{ card.val().title }}
+        </ion-card-header>
+        <ion-card-content>
+            {{ card.val().content }}
+        </ion-card-content>
+        <ion-row>
+            <ion-col left text-center>
+                <button ion-button icon-only clear (click)="editCard(card)">
+                    <ion-icon name="md-create"></ion-icon>
+                </button>
+            </ion-col>
+            <ion-col center text-center>
+                <button ion-button icon-only clear (click)="deleteCard(card)">
+                    <ion-icon name="md-trash"></ion-icon>
+                </button>
+            </ion-col>
+        </ion-row>
+    </ion-card>
 
     <ion-fab bottom right (click)="addCard()">
         <button ion-fab color="danger">

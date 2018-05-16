@@ -1,62 +1,84 @@
 import {Component} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {AlertController, NavController} from 'ionic-angular';
 import {DataProvider} from "../../providers/data/data";
-import {AlertController} from "ionic-angular";
 
 @Component({
     selector: 'page-home',
     templateUrl: 'home.html'
 })
 export class HomePage {
-    setOfCards: any;
+    setOfCards:any;
 
-    constructor(public navCtrl: NavController, public data: DataProvider, public alertCtrl: AlertController) {
+    constructor(public navCtrl: NavController, public  data:DataProvider, public alertCtrl:AlertController) {
 
     }
 
     ionViewDidLoad() {
-        this.setOfCards = this.data.getCards();
+       this.setOfCards = this.data.getCards();
+       // .then((result) => {
+       //     console.log('result ', result);
+       //     console.log('result '+ result);
+       //     this.setOfCards = result;
+       // })
     }
 
-    editCard(card): void {
+    editCard(card):void {
         let prompt = this.alertCtrl.create({
-            title: 'Edit card',
+            title: 'Create a new card',
             message: "Enter a title and description for your new card.",
-            inputs: [{name: 'title', value: card.title}, {name: 'content', value: card.content}],
-            buttons: [{
-                text: 'Cancel', handler: data => {
-                    console.log('Cancel clicked');
+            inputs: [
+                {
+                    name: 'title',
+                    value: card.val().title
+                },
+                {
+                    name: 'content',
+                    value: card.val().content
                 }
-            }, {
-                text: 'Edit Card', handler: data => {
-                    let index = this.data.cards.indexOf(card);
-                    if (index > -1) {
-                        let obj = {"title": data.title, "content": data.content};
-                        this.data.updateCardInDB(card.key, obj, index);
+            ],
+            buttons: [
+                {
+                    text: 'Cancel',
+                    handler: data => {
+                        console.log('Cancel clicked');
+                    }
+                },
+                {
+                    text: 'Edit Card',
+                    handler: data => {
+                        let index = this.data.cards.indexOf(card);
+
+                        if(index > -1){
+                            let obj = {
+                                "title": data.title,
+                                "content": data.content
+                            };
+                            this.data.updateCardInDB(card.key, obj, index);
+                        }
                     }
                 }
-            }]
+            ]
         });
         prompt.present();
     }
 
-    deleteCard(card): void {
+    deleteCard(card):void {
         let confirm = this.alertCtrl.create({
-            title: 'Delete card',
+            title: 'Delete Card?',
             message: 'Are you sure you want to delete card?',
             buttons: [
                 {
-                    text: 'No',
+                    text: 'Cancel',
                     handler: () => {
-                        console.log('cancel clicked');
+                        console.log('cancelled clicked');
                     }
                 },
                 {
                     text: 'Delete',
                     handler: () => {
                         let index = this.data.cards.indexOf(card);
-                        if (index > -1) {
-                            this.data.cards.splice(index, 1)
+                        if(index > -1){
+                            this.data.cards.splice(index, 1);
                         }
                         this.data.removeCardFromDB(card);
                     }
@@ -69,35 +91,35 @@ export class HomePage {
     addCard(): void {
         let prompt = this.alertCtrl.create({
             title: 'Create a new card',
-            message: 'Enter a title and description for your new card',
+            message: "Enter a title and description for your new card.",
             inputs: [
                 {
                     name: 'title',
-                    placeholder: 'title'
+                    placeholder: 'Title'
                 },
                 {
                     name: 'content',
-                    placeholder: 'description'
+                    placeholder: "Description"
                 }
             ],
             buttons: [
                 {
-                    text: 'cancel',
+                    text: 'Cancel',
                     handler: data => {
-                        console.log('cancel clicked');
+                        console.log('Cancel clicked');
                     }
                 },
                 {
-                    text: 'create card',
+                    text: 'Create Card',
                     handler: data => {
                         // this.data.cards.push(data);
                         this.data.addCardToDB(data);
                     }
                 }
             ]
-
         });
         prompt.present();
     }
+
 
 }

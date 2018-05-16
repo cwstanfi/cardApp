@@ -10,85 +10,63 @@ import firebase, {User} from 'firebase';
 @Injectable()
 export class DataProvider {
 
-    cardsRef: any;
-    cards: any = [];
-    updateCardIndex: any = "";
+    cardsRef:any;
+    cards:any = [];
+    updateCardIndex:any = "";
 
     constructor() {
 
     }
 
 
-    getCards(): Array<any> {
+    getCards():Array<any> {
+
         this.cardsRef = firebase.database().ref('Cards');
 
-        this.cardsRef.on('child_added', (data) => {
-            return this.cards.push(data);
-
+        this.cardsRef.on('child_added',(data) => {
+            console.log("data ", data);
+            this.cards.push(data);
         });
         this.cardsRef.on('child_removed', (data) => {
-
+            console.log('data ', data);
         });
         this.cardsRef.on('child_changed', (data) => {
             this.cards[this.updateCardIndex] = data;
         });
-
         return this.cards;
     }
 
-
-    findKeyInArray(snapshot) {
-        let returnArr = [];
-
-        snapshot.forEach(function (idx, child) {
-        })
-    }
-
-
-    snapshotToArray(snapshot) {
-        let returnArr = [];
-        snapshot.forEach(function (childSnapshot) {
-            let item = childSnapshot.val();
-            item.key = childSnapshot.key;
-            returnArr.push(item);
-        });
-        return returnArr;
-    }
-
-    addCardToDB(newCard): void {
+    addCardToDB(newCard):void {
         firebase.database().ref('Cards').push(newCard);
     }
 
-    removeCardFromDB(cardToDelete): void {
+    removeCardFromDB(cardToDelete):void {
         firebase.database().ref('Cards').child(cardToDelete.key).remove();
-        firebase.database().ref('Cards').on('child_removed', function (data) {
-        })
     }
 
-    updateCardInDB(key, newData, idx): void {
+    updateCardInDB(key, newData, idx):void {
         this.updateCardIndex = idx;
         firebase.database().ref(`Cards/${key}`).update(newData);
     }
 
-    async signInWithEP(loginObject): Promise<any> {
+    async signInWithEP(loginObject):Promise<any> {
         return firebase.auth().signInWithEmailAndPassword(loginObject.email, loginObject.password);
     }
 
-    async createAccount(userObject): Promise<any> {
+    async createAccount(email, password, fName, lName):Promise<any> {
         try {
             const newUser:User = await firebase
-            .auth()
-            .createUserWithEmailAndPassword(userObject.email, userObject.password);
+                .auth()
+                .createUserWithEmailAndPassword(email, password);
 
             await firebase
-            .database()
-            .ref(`/userProfile/${newUser.uid}`)
-            .set({email: userObject.email, firstName: userObject.firstName, lastName: userObject.lastName});
+                .database()
+                .ref(`/userProfile/${newUser.uid}`)
+                .set({email:email, firstName:fName, lastName:lName});
             return newUser;
-        } catch (error) {
+        } catch (error){
             throw error;
         }
     }
 
 }
-

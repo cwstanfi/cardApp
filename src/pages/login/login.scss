@@ -1,5 +1,5 @@
 page-login {
-  h1,h4 {
+  h1, h4 {
     text-align: center;
   }
 
@@ -8,7 +8,11 @@ page-login {
   }
 
   .createBtn {
-    color: blue;
+    color: #0a13ff;
     cursor: pointer;
+  }
+
+  .moveUp {
+    margin-top: -16px;
   }
 }

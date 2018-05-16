@@ -5,4 +5,4 @@ export const FIREBASE_CONFIG = {
     projectId: "fir-starter-79ae7",
     storageBucket: "fir-starter-79ae7.appspot.com",
     messagingSenderId: "933667504626"
-}
+};

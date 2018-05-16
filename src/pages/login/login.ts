@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
-import {AlertController, IonicPage, Loading, NavController, LoadingController} from 'ionic-angular';
-import {HomePage} from "../home/home";
+import {AlertController, IonicPage, Loading, LoadingController, NavController} from 'ionic-angular';
 import {DataProvider} from "../../providers/data/data";
 import {CreateAccountPage} from "../create-account/create-account";
+// import {HomePage} from "../home/home";
 
 /**
  * Generated class for the LoginPage page.
@@ -18,9 +18,9 @@ import {CreateAccountPage} from "../create-account/create-account";
 })
 export class LoginPage {
 
-    public loading: Loading;
+    public loading:Loading;
 
-    constructor(public navCtrl: NavController, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public data: DataProvider) {
+    constructor(public navCtrl: NavController, public alertCtrl:AlertController, public loadingCtrl:LoadingController, public data:DataProvider) {
     }
 
     ionViewDidLoad() {
@@ -29,16 +29,16 @@ export class LoginPage {
 
     loginClick(): void {
         let prompt = this.alertCtrl.create({
-            title: 'Log into your account',
-            message: 'Log in to view your account',
+            title: 'Login To CardApp',
+            message: "Login to view your account.",
             inputs: [
                 {
                     name: 'email',
-                    placeholder: 'email address'
+                    placeholder: "email address"
                 },
                 {
                     name: 'password',
-                    placeholder: 'password',
+                    placeholder: "Password",
                     type: "password"
                 }
             ],
@@ -46,17 +46,16 @@ export class LoginPage {
                 {
                     text: 'Cancel',
                     handler: data => {
-                        console.log('cancel clicked');
+                        console.log('Cancel clicked');
                     }
                 },
                 {
-                    text: 'Login',
+                    text: 'Log In',
                     handler: data => {
                         this.data.signInWithEP(data);
                     }
                 }
             ]
-
         });
         this.loading = this.loadingCtrl.create();
         prompt.present();
