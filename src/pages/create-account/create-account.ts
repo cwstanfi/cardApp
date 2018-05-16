@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 /**
  * Generated class for the CreateAccountPage page.
@@ -16,13 +16,15 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 })
 export class CreateAccountPage {
 
-    private loginForm: FormGroup;
+    private registerForm: FormGroup;
 
-    constructor(private formBuilder:FormBuilder, public navCtrl: NavController, public navParams: NavParams) {
+    constructor(private formBuilder: FormBuilder, public navCtrl: NavController, public navParams: NavParams) {
 
-        this.loginForm = this.formBuilder.group({
+        this.registerForm = this.formBuilder.group({
             email: ['', Validators.compose([Validators.required, Validators.email])],
-            password: ['', Validators.required]
+            password: ['', Validators.compose([Validators.required])],
+            fName: ['', Validators.compose([Validators.required])],
+            lName: ['', Validators.compose([Validators.required])]
         })
     }
 

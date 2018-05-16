@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {AlertController, IonicPage, Loading, NavController, LoadingController} from 'ionic-angular';
 import {HomePage} from "../home/home";
 import {DataProvider} from "../../providers/data/data";
+import {CreateAccountPage} from "../create-account/create-account";
 
 /**
  * Generated class for the LoginPage page.
