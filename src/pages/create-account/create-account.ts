@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {FormGroup} from "@angular/forms";
 
 /**
  * Generated class for the CreateAccountPage page.
@@ -14,6 +15,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'create-account.html',
 })
 export class CreateAccountPage {
+
+    private loginForm: FormGroup;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
