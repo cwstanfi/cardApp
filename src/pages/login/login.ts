@@ -61,4 +61,8 @@ export class LoginPage {
         prompt.present();
     }
 
+    createAccount():void {
+        this.navCtrl.push(CreateAccountPage);
+    }
+
 }
